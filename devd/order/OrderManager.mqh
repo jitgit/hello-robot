@@ -24,7 +24,7 @@ public:
         {
             if (IsTradeAllowed(Symbol(), TimeCurrent()))
             {
-                warn(StringFormat("Trading not allowed for %s during %s", Symbol(), TimeCurrent()));
+                warn(StringFormat("Trading Hours are closed for %s.", _Symbol));
                 return false;
             }
         }

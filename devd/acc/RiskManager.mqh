@@ -21,14 +21,23 @@ public:
         double tickSize = MarketInfo(NULL, MODE_TICKSIZE);
 
         tickValue = Digits <= 3 ? tickValue / 100 : tickValue; //handling JPY
+        log(StringFormat("Tick (Value :%f, Size :%f)", tickValue, tickSize));
+        if (tickValue != 0)
+        {
 
-        double maxLossInQuoteCurrency = maxLoss / tickValue;
+            double maxLossInQuoteCurrency = maxLoss / tickValue;
 
-        double optimalLotSize = NormalizeDouble(maxLossInQuoteCurrency / (maxLossInPips * GetPipValueFromDigits()) / lotSize, 2);
-        log(StringFormat("Balance :%+.0f %s, Equity: %+.0f %s, MaxLoss :%+.0f %s, maxLossInPips:%d", accBalance, accCurr, accEquity, accCurr, maxLoss, accCurr, maxLossInPips));
-        log(StringFormat("Tick (Value :%f, Size :%f)", AccountCurrency(), _Symbol, tickValue, tickSize));
-        log(StringFormat("RISK_ALLOWED: %f, maxLossInQuoteCurrency :%f, optimalLotSize: %f", maxRiskPerc, maxLossInQuoteCurrency, optimalLotSize));
-        return optimalLotSize;
+            double optimalLotSize = NormalizeDouble(maxLossInQuoteCurrency / (maxLossInPips * GetPipValueFromDigits()) / lotSize, 2);
+            log(StringFormat("Balance :%+.0f %s, Equity: %+.0f %s, MaxLoss :%+.0f %s, maxLossInPips:%d", accBalance, accCurr, accEquity, accCurr, maxLoss, accCurr, maxLossInPips));
+
+            log(StringFormat("RISK_ALLOWED: %f, maxLossInQuoteCurrency :%f, optimalLotSize: %f", maxRiskPerc, maxLossInQuoteCurrency, optimalLotSize));
+            return optimalLotSize;
+        }
+        else
+        {
+            warn("Tick Value is zero");
+            return 0;
+        }
     }
 
     double optimalLotSize(double maxRiskPerc, double entryPrice, double stopLoss)

@@ -25,6 +25,7 @@ void main()
     if (anyExistingOrders >= MAX_ORDER_THREADHOLD)
     {
         warn("Not scanning or booking orders any more.");
+        return;
     }
     else
     {
