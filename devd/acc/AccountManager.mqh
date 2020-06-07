@@ -7,14 +7,11 @@
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
-#include <devd/acc/RiskManager.mqh>
-
 class AccountManager
 {
 
 protected:
     double itsRiskPercentage;
-    RiskManager *riskManager;
 
 public:
     void printAccountInfo()
@@ -26,7 +23,6 @@ public:
     AccountManager(double riskPercentage = 0.02)
     {
         itsRiskPercentage = riskPercentage;
-        riskManager = new RiskManager();
     }
 };
 

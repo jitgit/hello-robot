@@ -10,17 +10,18 @@
 #include <devd/signal/bb/BBSignalScanner.mqh>
 #include <devd/order/OrderManager.mqh>
 #include <devd/acc/AccountManager.mqh>
+#include <devd/acc/RiskManager.mqh>
 
 int MAX_ORDER_THREADHOLD = 1;
 
 void main()
 {
     SignalScanner *scanner = new BBSignalScanner(1, 4, 20);
-
     OrderManager *orderManager = new OrderManager();
-    int currentOrdersByMagicNumber = orderManager.getTotalOrderByMagicNum(scanner.magicNumber());
 
+    int currentOrdersByMagicNumber = orderManager.getTotalOrderByMagicNum(scanner.magicNumber());
     log(StringFormat("Magic Number(%d), MaxOrder(%d), Exiting(%d)", scanner.magicNumber(), MAX_ORDER_THREADHOLD, currentOrdersByMagicNumber));
+
     if (currentOrdersByMagicNumber > MAX_ORDER_THREADHOLD)
     {
         warn("Not scanning or booking orders any more.");
@@ -28,13 +29,14 @@ void main()
     else
     {
         AccountManager *accountManager = new AccountManager();
-        accountManager.printAccountInfo();
         RiskManager *riskManager = new RiskManager();
 
+        accountManager.printAccountInfo();
         PrintCurrencyInfo();
-        SignalResult scan = scanner.scan();
 
+        SignalResult scan = scanner.scan();
         log("Scan Result: " + scan.str());
+
         if (scan.go == GO_LONG || scan.go == GO_SHORT)
         {
             bool isLong = scan.go == GO_LONG;
