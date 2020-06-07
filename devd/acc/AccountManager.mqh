@@ -19,7 +19,7 @@ protected:
 public:
     void printAccountInfo()
     {
-        log(StringFormat("AccountCurrency :%s, _Symbol: %s", AccountCurrency(), _Symbol));        
+        log(StringFormat("AccountCurrency :%s, _Symbol: %s", AccountCurrency(), _Symbol));
     }
 
 public:

@@ -15,12 +15,15 @@ class OrderManager
 public:
     bool isTradingAllowed()
     {
-        if(!IsTradeAllowed()) {
+        if (!IsTradeAllowed())
+        {
             warn("Auto Trading is disable for Expert Advisor");
             return false;
-
-        } else {
-            if(IsTradeAllowed(Symbol(), TimeCurrent())) {
+        }
+        else
+        {
+            if (IsTradeAllowed(Symbol(), TimeCurrent()))
+            {
                 warn(StringFormat("Trading not allowed for %s during %s", Symbol(), TimeCurrent()));
                 return false;
             }
