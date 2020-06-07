@@ -19,11 +19,6 @@ protected:
     int itsPeriod;
 
 public:
-    virtual int magicNumbr()
-    {
-        return -1;
-    }
-
     SignalResult scan()
     {
 
