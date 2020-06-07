@@ -6,7 +6,7 @@
 #property strict
 
 #include <devd/common.mqh>
-#include <devd/AccountInfo.mqh>
+#include <devd/account-utils.mqh>
 #include <devd/signal/bb/BBSignalScanner.mqh>
 #include <devd/order/OrderManager.mqh>
 #include <devd/acc/AccountManager.mqh>
@@ -19,7 +19,7 @@ void main()
 
     OrderManager *orderManager = new OrderManager();
     int currentOrdersByMagicNumber = orderManager.getTotalOrderByMagicNum(scanner.magicNumber());
-
+    
     log(StringFormat("Magic Number(%d), MaxOrder(%d), Exiting(%d)", scanner.magicNumber(), MAX_ORDER_THREADHOLD, currentOrdersByMagicNumber));
     if (currentOrdersByMagicNumber > MAX_ORDER_THREADHOLD)
     {
@@ -29,9 +29,8 @@ void main()
     {
         AccountManager *accountManager = new AccountManager();
         accountManager.printAccountInfo();
-
         RiskManager *riskManager = new RiskManager();
-
+        
         PrintCurrencyInfo();
         SignalResult scan = scanner.scan();
 
