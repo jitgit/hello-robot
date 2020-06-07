@@ -41,7 +41,7 @@ void main()
         {
             bool isLong = scan.go == GO_LONG;
             double optimalLotSize = riskManager.optimalLotSize(scan.stopLoss, scan.takeProfit);
-            orderManager.bookTrade(isLong, scan.entry, scan.stopLoss, scan.takeProfit, optimalLotSize);
+            orderManager.bookTrade(isLong, scan.entry, scan.stopLoss, scan.takeProfit, optimalLotSize, scanner.magicNumber());
         }
         else
         {

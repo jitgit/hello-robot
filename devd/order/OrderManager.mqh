@@ -31,7 +31,7 @@ public:
         return true;
     }
 
-    void bookTrade(bool isLong, double entry, double stoploss, double takeProfit, double lotSize, int slippage = 10) //TODO use a strategy for slippage
+    void bookTrade(bool isLong, double entry, double stoploss, double takeProfit, double lotSize, int magicNumber, int slippage = 10, string comment = "") //TODO use a strategy for slippage
     {
 
         //TODO check that stoploss diff is great than STOP_LEVEL
@@ -44,7 +44,7 @@ public:
             }
             else
             {
-                orderId = OrderSend(NULL, OP_SELLLIMIT, lotSize, entry, slippage, stoploss, takeProfit, "Buy Order");
+                orderId = OrderSend(NULL, OP_SELLLIMIT, lotSize, entry, slippage, stoploss, takeProfit, "Sell Order");
             }
 
             if (orderId < 0)
