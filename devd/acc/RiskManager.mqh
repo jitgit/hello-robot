@@ -13,6 +13,7 @@ public:
     double optimalLotSize(double maxRiskPerc, int maxLossInPips)
     {
         double accBalance = AccountBalance();
+        string accCurr = AccountCurrency();
         double accEquity = AccountEquity();
         double maxLoss = accEquity * maxRiskPerc;
         double lotSize = MarketInfo(NULL, MODE_LOTSIZE);
@@ -24,7 +25,7 @@ public:
         double maxLossInQuoteCurrency = maxLoss / tickValue;
 
         double optimalLotSize = NormalizeDouble(maxLossInQuoteCurrency / (maxLossInPips * GetPipValueFromDigits()) / lotSize, 2);
-        log(StringFormat("Balance :%f, Equity: %f, MaxLoss :%f, maxLossInPips:%d", accBalance, accEquity, maxLoss, maxLossInPips));
+        log(StringFormat("Balance :%+.0f %s, Equity: %+.0f %s, MaxLoss :%+.0f %s, maxLossInPips:%d", accBalance, accCurr, accEquity, accCurr, maxLoss, accCurr, maxLossInPips));
         log(StringFormat("Tick (Value :%f, Size :%f)", AccountCurrency(), _Symbol, tickValue, tickSize));
         log(StringFormat("RISK_ALLOWED: %f, maxLossInQuoteCurrency :%f, optimalLotSize: %f", maxRiskPerc, maxLossInQuoteCurrency, optimalLotSize));
         return optimalLotSize;

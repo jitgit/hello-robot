@@ -12,17 +12,17 @@
 #include <devd/acc/AccountManager.mqh>
 #include <devd/acc/RiskManager.mqh>
 
-int MAX_ORDER_THREADHOLD = 1;
+input int MAX_ORDER_THREADHOLD = 1;
 
 void main()
 {
     SignalScanner *scanner = new BBSignalScanner(1, 4, 20);
     OrderManager *orderManager = new OrderManager();
+    long orderIds[];
+    int anyExistingOrders = orderManager.getTotalOrderByMagicNum(scanner.magicNumber(), orderIds);
+    log(StringFormat("Magic Number(%d), MaxOrder(%d), Exiting(%d)", scanner.magicNumber(), MAX_ORDER_THREADHOLD, anyExistingOrders));
 
-    int currentOrdersByMagicNumber = orderManager.getTotalOrderByMagicNum(scanner.magicNumber());
-    log(StringFormat("Magic Number(%d), MaxOrder(%d), Exiting(%d)", scanner.magicNumber(), MAX_ORDER_THREADHOLD, currentOrdersByMagicNumber));
-
-    if (currentOrdersByMagicNumber > MAX_ORDER_THREADHOLD)
+    if (anyExistingOrders >= MAX_ORDER_THREADHOLD)
     {
         warn("Not scanning or booking orders any more.");
     }

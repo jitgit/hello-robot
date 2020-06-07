@@ -56,24 +56,28 @@ public:
                 log(StringFormat("Order ID(%d), SUCCESSFUL", orderId));
         }
         else
+        {
             log("Auto trading is not allowed, or trading hours not active");
+        }
     }
 
-    int getTotalOrderByMagicNum(int magicNumber)
+    int getTotalOrderByMagicNum(int magicNumber, long &orderIds[])
     {
         int openOrders = OrdersTotal();
-        int result = 0;
+        int index = 0;
         for (int i = 0; i < openOrders; i++)
         {
             if (OrderSelect(i, SELECT_BY_POS) == true)
             {
+                OrderPrint();
                 if (OrderMagicNumber() == magicNumber)
                 {
-                    result++;
+                    ArrayResize(orderIds, ArraySize(orderIds) + 1);
+                    orderIds[index++] = OrderTicket();
                 }
             }
         }
-        return result;
+        return ArraySize(orderIds);
     }
 
 public:
