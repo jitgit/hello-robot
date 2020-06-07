@@ -24,17 +24,17 @@ public:
 
         SignalResult result = {GO_NOTHING, -1.0, -1.0, -1.0};
 
-        log(StringFormat("Ask :%f, Bid :%f", Ask, Bid));
-        log(StringFormat("itsPeriod :%f, itsInnerSD :%f, itsOuterSD:%f", itsPeriod, itsInnerSD, itsOuterSD));
+        debug(StringFormat("Ask :%f, Bid :%f", Ask, Bid));
+        debug(StringFormat("itsPeriod :%f, itsInnerSD :%f, itsOuterSD:%f", itsPeriod, itsInnerSD, itsOuterSD));
         double innerMain = iBands(NULL, PERIOD_CURRENT, itsPeriod, itsInnerSD, 0, PRICE_CLOSE, MODE_MAIN, 0);
         double innerUpper = iBands(NULL, PERIOD_CURRENT, itsPeriod, itsInnerSD, 0, PRICE_CLOSE, MODE_UPPER, 0);
         double innerLower = iBands(NULL, PERIOD_CURRENT, itsPeriod, itsInnerSD, 0, PRICE_CLOSE, MODE_LOWER, 0);
-        log(StringFormat("innerMain :%f, innerUpper :%f, innerLower:%f", innerMain, innerUpper, innerLower));
+        debug(StringFormat("innerMain :%f, innerUpper :%f, innerLower:%f", innerMain, innerUpper, innerLower));
 
         double outerMain = iBands(NULL, PERIOD_CURRENT, itsPeriod, itsOuterSD, 0, PRICE_CLOSE, MODE_MAIN, 0);
         double outerUpper = iBands(NULL, PERIOD_CURRENT, itsPeriod, itsOuterSD, 0, PRICE_CLOSE, MODE_UPPER, 0);
         double outerLower = iBands(NULL, PERIOD_CURRENT, itsPeriod, itsOuterSD, 0, PRICE_CLOSE, MODE_LOWER, 0);
-        log(StringFormat("outerMain :%f, outerUpper :%f, outerLower:%f", outerMain, outerUpper, outerLower));
+        debug(StringFormat("outerMain :%f, outerUpper :%f, outerLower:%f", outerMain, outerUpper, outerLower));
 
         if (Ask < innerLower)
         {

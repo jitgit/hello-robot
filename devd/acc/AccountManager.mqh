@@ -13,18 +13,19 @@ class AccountManager
 {
 
 protected:
+    double itsRiskPercentage;
     RiskManager *riskManager;
 
 public:
     void printAccountInfo()
     {
-        int maxLossInPips = 40; //TODO
-        riskManager.optimalLotSize(0.02, maxLossInPips);
+        log(StringFormat("AccountCurrency :%s, _Symbol: %s", AccountCurrency(), _Symbol));        
     }
 
 public:
-    AccountManager()
+    AccountManager(double riskPercentage = 0.02)
     {
+        itsRiskPercentage = riskPercentage;
         riskManager = new RiskManager();
     }
 };
