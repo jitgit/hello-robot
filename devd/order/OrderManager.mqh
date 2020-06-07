@@ -22,7 +22,7 @@ public:
         }
         else
         {
-            if (IsTradeAllowed(Symbol(), TimeCurrent()))
+            if (!IsTradeAllowed(Symbol(), TimeCurrent()))
             {
                 warn(StringFormat("Trading Hours are closed for %s.", _Symbol));
                 return false;

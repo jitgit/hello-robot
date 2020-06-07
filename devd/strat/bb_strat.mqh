@@ -18,6 +18,8 @@ void main()
 {
     SignalScanner *scanner = new BBSignalScanner(1, 4, 20);
     OrderManager *orderManager = new OrderManager();
+    AccountManager *accountManager = new AccountManager();
+    RiskManager *riskManager = new RiskManager();
     long orderIds[];
     int anyExistingOrders = orderManager.getTotalOrderByMagicNum(scanner.magicNumber(), orderIds);
     log(StringFormat("Magic Number(%d), MaxOrder(%d), Exiting(%d)", scanner.magicNumber(), MAX_ORDER_THREADHOLD, anyExistingOrders));
@@ -29,8 +31,6 @@ void main()
     }
     else
     {
-        AccountManager *accountManager = new AccountManager();
-        RiskManager *riskManager = new RiskManager();
 
         accountManager.printAccountInfo();
         PrintCurrencyInfo();
@@ -49,5 +49,14 @@ void main()
             log("NO SIGNAL FROM SCAN RESULT");
         }
     }
+
+    delete scanner;
+    scanner = NULL;
+    delete orderManager;
+    orderManager = NULL;
+    delete accountManager;
+    accountManager = NULL;
+    delete riskManager;
+    riskManager = NULL;
 }
 //+------------------------------------------------------------------+
